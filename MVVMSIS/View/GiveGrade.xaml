@@ -1,0 +1,35 @@
+﻿<Window x:Class="MVVMSIS.View.GiveGrade"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVMSIS.View"
+        mc:Ignorable="d"
+        DataContext="{Binding Path=MainVM, Source={StaticResource ViewModelLocator}}"
+        Title="GiveGrade" Height="300" Width="300" WindowStartupLocation ="CenterScreen">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Label></Label>
+            <Label HorizontalAlignment ="Center " >Give Grades</Label>
+            <Label></Label>
+            <StackPanel Orientation ="Horizontal" >
+                <Label >Prelim:</Label>
+                <TextBox Text="{Binding CurrentSubject.Prelim}"  Width="150"></TextBox>
+            </StackPanel>
+            <Label></Label>
+            <StackPanel Orientation ="Horizontal" >
+                <Label >Midterm:</Label>
+                <TextBox Width="150" Text="{Binding CurrentSubject.Midterm}"></TextBox>
+            </StackPanel>
+            <Label></Label>
+            <StackPanel Orientation ="Horizontal" >
+                <Label >Prefinal:</Label>
+                <TextBox Width="150" Text ="{Binding CurrentSubject.Prefinal}"></TextBox>
+            </StackPanel>
+            <Label></Label>
+            <Button Width="120" Command="{Binding GiveGradesCommand}"> Give Grades</Button>
+            <Label></Label>
+            <Button Width="120" Command="{Binding CloseGiveGradeCommand}"> Cancel</Button>
+        </StackPanel>
+    </Grid>
+</Window>

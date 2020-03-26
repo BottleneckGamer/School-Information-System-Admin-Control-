@@ -1,0 +1,90 @@
+﻿<Window x:Class="MVVMSIS.View.StudentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVMSIS.View"
+        DataContext="{Binding Path=MainVM, Source={StaticResource ViewModelLocator}}"
+        mc:Ignorable="d"
+        Title="StudentView" Height="450" Width="750" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="250"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="2" Grid.RowSpan="8" >
+            <Label Content="Subject List"  HorizontalAlignment="Center"></Label>
+            <ListBox VerticalAlignment="Top" Margin="0,0,0,0" ItemsSource ="{Binding TakenSubjectCollection}" SelectedItem ="{Binding MainVM.SelectedSubject,Source={StaticResource ViewModelLocator}}"  Width="200" Height="230" Background="Wheat">
+                <ListBox.ItemTemplate>
+                    <DataTemplate >
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Subject Code: "></Label>
+                                <Label Content="{Binding SubjectCode}" ></Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Subject Name: "></Label>
+                                <Label Content="{Binding Name}" ></Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="# of Units: "></Label>
+                                <Label Content="{Binding Units}" ></Label>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        
+        <Label  VerticalAlignment="Center" HorizontalAlignment="Center">Last Name:</Label>
+        <Label  Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" >First Name:</Label>
+        <Label  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">Gender:</Label>
+        <Label  Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">Birthdate:</Label>
+        <Label  Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center">Course:</Label>       
+        <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center">Required Units: </Label>
+        <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center">Department:</Label>
+        <Label Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Center">Section:</Label>
+        <Label Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Center">Subjects:</Label>
+        <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="34" Text="{Binding CurrentStudent.LastName}" ></TextBox>
+        <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="34" Text="{Binding CurrentStudent.FirstName}"></TextBox>
+        <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="34" Text="{Binding CurrentStudent.Gender}"></TextBox>
+        <DatePicker Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="34" SelectedDate="{Binding CurrentStudent.Birthdate}"></DatePicker>
+        <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="34" Text="{Binding CurrentStudent.Course}"></TextBox>
+        <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="34" Text="{Binding CurrentStudent.RequiredUnits}"></TextBox>
+        <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="34" Text="{Binding CurrentStudent.Department}"></TextBox>
+        <TextBox Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="34" Text="{Binding CurrentStudent.Section}"></TextBox>        
+        <ComboBox Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" Width="330" Height="34" ItemsSource ="{Binding MainVM.SubjectList , Source={StaticResource ViewModelLocator} }" SelectedItem ="{Binding MainVM.SelectedSubject, Source={StaticResource ViewModelLocator } , Mode=TwoWay }">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Subject Name: "></Label>
+                            <Label Content="{Binding Name}" ></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="# of Units: "></Label>
+                            <Label Content="{Binding Units}" ></Label>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Grid.ColumnSpan="2"  Grid.Column="0" Grid.Row="9" Height="35" Width="120" Margin="0,0,290,0" Command="{Binding MainVM.CloseStudentViewCommand, Source={StaticResource ViewModelLocator } }">Cancel</Button>
+        <Button Grid.Column="1" Grid.Row="9" Width="120" Height="35" Margin="0,0,140,0" Command="{Binding MainVM.TakeSubjectCommand, Source={StaticResource ViewModelLocator}}">Take Subject</Button>
+        <Button Grid.Column="1" Grid.Row="9" Width="120" Height="35" Margin="170,0,0,0" Command="{Binding MainVM.DropSubjectCommand, Source={StaticResource ViewModelLocator}}" >Drop Subject</Button>
+        <Button Grid.Column="1" Grid.Row="9"  Width="120" Height="35" Margin="350,0,0,0" Grid.ColumnSpan="2"  Command="{Binding MainVM.SaveStudentCommand, Source={StaticResource ViewModelLocator}}" >Add Student</Button>
+    </Grid>
+</Window>
